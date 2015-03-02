@@ -2,6 +2,51 @@
 <head>
 <body>
 <script type="text/javascript">
+// Boolean variable specified if alert should be displayed if cookie exceeds 4KB
+
+var caution = false
+
+// name - name of the cookie
+
+// value - value of the cookie
+
+// [expires] - expiration date of the cookie (defaults to end of current session)
+
+// [path] - path for which the cookie is valid (defaults to path of calling document)
+
+// [domain] - domain for which the cookie is valid (defaults to domain of calling document)
+
+// [secure] - Boolean value indicating if the cookie transmission requires a secure transmission
+
+// * an argument defaults when it is assigned null as a placeholder
+
+// * a null placeholder is not required for trailing omitted arguments
+function setCookie(name, value, expires, path, domain, secure) {
+
+	var curCookie = name + "=" + escape(value) +
+
+		((expires) ? "; expires=" + expires.toGMTString() : "") +
+
+		((path) ? "; path=" + path : "") +
+
+		((domain) ? "; domain=" + domain : "") +
+
+		((secure) ? "; secure" : "")
+
+	if (!caution || (name + "=" + escape(value)).length <= 4000)
+
+		document.cookie = curCookie
+
+	else
+
+		if (confirm("Cookie превышает 4KB и будет вырезан !"))
+
+			document.cookie = curCookie
+
+}
+// name - name of the desired cookie
+
+// * return string containing value of specified cookie or null if cookie does not exist
 function getCookie(name) {
 
 	var prefix = name + "="
